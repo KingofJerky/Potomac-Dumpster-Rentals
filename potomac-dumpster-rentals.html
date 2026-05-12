@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Potomac Dumpster Rentals — Same-Day Drop. No-Hassle Pickup.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --black: #0a0a0a;
+    --orange: #f55a00;
+    --orange-light: #ff7a2e;
+    --white: #f5f2ee;
+    --off-white: #ede9e2;
+    --gray: #1c1c1c;
+    --mid-gray: #2e2e2e;
+    --light-gray: #3d3d3d;
+    --text-muted: #888;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4vw;
+    height: 64px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(245,90,0,0.2);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--orange); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange);
+    color: var(--black) !important;
+    padding: 8px 18px;
+    font-weight: 500;
+    letter-spacing: 0.1em !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--orange-light) !important; color: var(--black) !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    padding-top: 64px;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.2s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6vw 4vw 6vw 6vw;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-h1 .accent { color: var(--orange); }
+
+  .hero-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 380px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--black);
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 1px solid rgba(245, 90, 0, 0.5);
+    color: var(--white);
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--mid-gray);
+  }
+
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--gray);
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .hero-bg-number {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 40vw;
+    color: rgba(245,90,0,0.06);
+    line-height: 1;
+    right: -5vw;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-badge-stack {
+    position: absolute;
+    bottom: 10%;
+    left: 15%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-badge {
+    background: var(--black);
+    border: 1px solid var(--mid-gray);
+    padding: 12px 18px;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--white);
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* DIAGONAL DIVIDER */
+  .divider-slash {
+    width: 100%;
+    height: 60px;
+    background: var(--gray);
+    clip-path: polygon(0 0, 100% 60px, 100% 100%, 0 100%);
+    margin-top: -1px;
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 7rem 6vw;
+    position: relative;
+  }
+
+  .section-number {
+    font-family: var(--font-display);
+    font-size: 10rem;
+    color: rgba(245,90,0,0.07);
+    line-height: 1;
+    position: absolute;
+    top: 1rem;
+    right: 4vw;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title .accent { color: var(--orange); }
+
+  /* SERVICES */
+  #services { background: var(--gray); }
+
+  .services-intro {
+    max-width: 540px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 3.5rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--mid-gray);
+    border: 1px solid var(--mid-gray);
+  }
+
+  .service-card {
+    background: var(--gray);
+    padding: 2.5rem 2rem;
+    transition: background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--orange);
+    transition: width 0.3s ease;
+  }
+
+  .service-card:hover { background: var(--mid-gray); }
+  .service-card:hover::before { width: 100%; }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    color: var(--white);
+  }
+
+  .service-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .service-size {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    border: 1px solid rgba(245,90,0,0.3);
+    padding: 4px 10px;
+  }
+
+  /* WAVE DIVIDER */
+  .wave-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    background: var(--black);
+  }
+
+  .wave-divider svg {
+    display: block;
+    width: 100%;
+  }
+
+  /* WHY CHOOSE US */
+  #why { background: var(--black); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .why-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .why-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--orange);
+    line-height: 1;
+    min-width: 50px;
+    opacity: 0.8;
+  }
+
+  .why-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+  }
+
+  .why-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--orange);
+    padding: 4rem 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--black);
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+  }
+
+  .cta-banner-sub {
+    font-size: 0.75rem;
+    color: rgba(10,10,10,0.65);
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .btn-dark {
+    background: var(--black);
+    color: var(--orange);
+    padding: 16px 36px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+
+  .btn-dark:hover { transform: translateY(-3px); }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--gray); }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .testi-card {
+    background: var(--black);
+    border: 1px solid var(--mid-gray);
+    padding: 2rem;
+    position: relative;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .testi-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+
+  .testi-stars {
+    color: var(--orange);
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    margin-bottom: 1.2rem;
+  }
+
+  .testi-quote {
+    font-size: 0.8rem;
+    color: var(--off-white);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testi-author {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .testi-location {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-top: 3px;
+  }
+
+  .testi-card::before {
+    content: '"';
+    font-family: Georgia, serif;
+    font-size: 8rem;
+    color: rgba(245,90,0,0.06);
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* ABOUT */
+  #about { background: var(--black); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .about-text p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 2;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-big-text {
+    font-family: var(--font-display);
+    font-size: 12rem;
+    line-height: 0.85;
+    color: var(--gray);
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+
+  .about-big-text span { color: var(--orange); }
+
+  .about-overlay-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, var(--black) 0%, transparent 100%);
+    padding: 2rem 0 0.5rem;
+  }
+
+  .about-tagline {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: var(--orange);
+  }
+
+  /* FAQ */
+  #faq { background: var(--gray); }
+
+  .faq-list {
+    margin-top: 3rem;
+    max-width: 760px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--mid-gray);
+  }
+
+  .faq-item input[type="checkbox"] {
+    display: none;
+  }
+
+  .faq-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 0;
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+    user-select: none;
+  }
+
+  .faq-label:hover { color: var(--orange); }
+
+  .faq-icon {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--orange);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    line-height: 1;
+  }
+
+  .faq-item input:checked ~ .faq-label .faq-icon { transform: rotate(45deg); }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+
+  .faq-item input:checked ~ .faq-answer {
+    max-height: 200px;
+    padding-bottom: 1.2rem;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--black); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    margin-top: 3rem;
+  }
+
+  .contact-info-block {
+    margin-bottom: 2rem;
+  }
+
+  .contact-info-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  .contact-info-value {
+    font-size: 0.9rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  .contact-info-value a {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-info-value a:hover { color: var(--orange); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-field label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    background: var(--gray);
+    border: 1px solid var(--mid-gray);
+    color: var(--white);
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus {
+    border-color: var(--orange);
+  }
+
+  .form-field select option { background: var(--gray); }
+
+  .form-submit {
+    background: var(--orange);
+    color: var(--black);
+    border: none;
+    padding: 15px 32px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    align-self: flex-start;
+  }
+
+  .form-submit:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  .form-error { color: #e55; font-size: 0.65rem; display: none; margin-top: 2px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--gray);
+    border-top: 1px solid var(--mid-gray);
+    padding: 4rem 6vw 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-brand span { color: var(--orange); }
+
+  .footer-tagline {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+
+  .footer-col-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: color 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links a:hover { color: var(--orange); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--mid-gray);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-service-area {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* FLOATING CALL BUTTON */
+  .float-call {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 800;
+    background: var(--orange);
+    color: var(--black);
+    padding: 14px 20px;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 30px rgba(245,90,0,0.4);
+    animation: pulse 2.5s ease-in-out infinite;
+    transition: transform 0.2s;
+  }
+
+  .float-call:hover {
+    transform: scale(1.05);
+    animation-play-state: paused;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 30px rgba(245,90,0,0.4); }
+    50% { box-shadow: 0 4px 50px rgba(245,90,0,0.7); }
+  }
+
+  .float-call-icon {
+    font-size: 1.1rem;
+  }
+
+  /* HAMBURGER MENU */
+  .nav-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    transition: 0.3s;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 3rem 6vw; }
+
+    .why-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+
+    .section-number { font-size: 6rem; }
+    .about-big-text { font-size: 7rem; }
+
+    .cta-banner { flex-direction: column; align-items: flex-start; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+    .float-call { bottom: 1.5rem; right: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    section { padding: 4rem 5vw; }
+    .hero-h1 { font-size: 3.5rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo"><span>PDR</span> — POTOMAC DUMPSTER</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-label">Potomac, Maryland — Serving the DMV</div>
+    <h1 class="hero-h1">DUMP<br><span class="accent">THE</span><br>REST.</h1>
+    <p class="hero-sub">Residential and commercial dumpster rentals in Potomac, MD. Same-day drop-off available. Fair pricing with no hidden fees. One call and it's handled.</p>
+    <div class="hero-ctas">
+      <a href="tel:3015550182" class="btn-primary">📞 Call (301) 555-0182</a>
+      <a href="#contact" class="btn-outline">Get a Free Quote</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label">Years Serving MD</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">3K+</div>
+        <div class="hero-stat-label">Rentals Delivered</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">24H</div>
+        <div class="hero-stat-label">Delivery Window</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-number">7</div>
+    <div class="hero-badge-stack">
+      <div class="hero-badge"><span class="badge-dot"></span>Same-Day Delivery Available</div>
+      <div class="hero-badge"><span class="badge-dot"></span>Sizes 10 to 40 Cubic Yards</div>
+      <div class="hero-badge"><span class="badge-dot"></span>No Hidden Fees — Ever</div>
+      <div class="hero-badge"><span class="badge-dot"></span>Licensed &amp; Insured in Maryland</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px;background:#0a0a0a;">
+    <polygon points="0,0 1440,50 1440,50 0,50" fill="#1c1c1c"/>
+  </svg>
+</div>
+
+<section id="services">
+  <div class="section-number">01</div>
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">DUMPSTER<br><span class="accent">RENTALS</span><br>DONE RIGHT.</h2>
+  <p class="services-intro">From weekend cleanouts to full-scale construction projects, we stock the right size for the job. Drop off anywhere in Potomac and surrounding Montgomery County areas.</p>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <span class="service-icon">🏠</span>
+      <div class="service-name">Home Cleanouts</div>
+      <p class="service-desc">Estate cleanouts, garage purges, basement hauls. Clear out years of clutter in a weekend — we'll have the dumpster on your driveway when you wake up.</p>
+      <span class="service-size">10 – 15 YD Recommended</span>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🔨</span>
+      <div class="service-name">Renovation Debris</div>
+      <p class="service-desc">Drywall, flooring, cabinetry, tile — renovation waste adds up fast. We handle all types of construction debris and keep your job site clean and code-compliant.</p>
+      <span class="service-size">20 – 30 YD Recommended</span>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🌿</span>
+      <div class="service-name">Yard & Landscaping</div>
+      <p class="service-desc">Brush, branches, sod, soil, and landscaping debris. Perfect for spring cleanups or major property overhauls throughout Potomac and Great Falls.</p>
+      <span class="service-size">10 – 20 YD Recommended</span>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🏗️</span>
+      <div class="service-name">Construction Sites</div>
+      <p class="service-desc">Commercial contracts and multi-swap arrangements available. We coordinate with contractors, GCs, and site managers to keep projects moving on schedule.</p>
+      <span class="service-size">30 – 40 YD Available</span>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🗑️</span>
+      <div class="service-name">Junk Removal</div>
+      <p class="service-desc">Got stuff but don't want to load it yourself? Ask about our load-and-go option. We bring the dumpster and our crew handles the heavy lifting for you.</p>
+      <span class="service-size">All Sizes Available</span>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">📦</span>
+      <div class="service-name">Moving Debris</div>
+      <p class="service-desc">Packing materials, old furniture, appliances you can't take with you. We make moving day less stressful by handling what's left behind.</p>
+      <span class="service-size">10 – 20 YD Recommended</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px;background:#1c1c1c;">
+    <polygon points="0,50 1440,0 1440,50" fill="#0a0a0a"/>
+  </svg>
+</div>
+
+<section id="why">
+  <div class="section-number">02</div>
+  <div class="section-label">The Difference</div>
+  <h2 class="section-title">WHY POTOMAC<br><span class="accent">CHOOSES US.</span></h2>
+
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div>
+        <div class="why-title">Same-Day Delivery</div>
+        <p class="why-text">Call before noon and your dumpster is on-site that afternoon. We know projects don't wait on shipping schedules. Local trucks, local drivers, local speed.</p>
+      </div>
+    </div>
+
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div>
+        <div class="why-title">Flat, Honest Pricing</div>
+        <p class="why-text">What we quote is what you pay. No fuel surcharges buried in fine print. No overage fees that appear after pickup. Transparent pricing from the first call.</p>
+      </div>
+    </div>
+
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div>
+        <div class="why-title">7 Sizes, One Call</div>
+        <p class="why-text">10, 15, 20, 25, 30, and 40 cubic yard containers in our fleet. Not sure what size you need? We'll tell you honestly — and never upsell you to something bigger than necessary.</p>
+      </div>
+    </div>
+
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div>
+        <div class="why-title">Locally Owned</div>
+        <p class="why-text">We're Montgomery County people. Not a franchise call center. When you call us, you talk to the people driving the truck — and we treat your property like our own.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div>
+    <div class="cta-banner-title">READY TO CLEAR<br>THE CLUTTER?</div>
+    <div class="cta-banner-sub">Same-day delivery available throughout Potomac &amp; Montgomery County</div>
+  </div>
+  <a href="tel:3015550182" class="btn-dark">Call (301) 555-0182</a>
+</div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-number">03</div>
+  <div class="section-label">What Customers Say</div>
+  <h2 class="section-title">REAL WORDS<br>FROM <span class="accent">REAL</span><br>NEIGHBORS.</h2>
+
+  <div class="testi-grid">
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Called at 9am on a Saturday and had a 20-yard dumpster in my driveway by 1pm. Crew was professional, didn't scratch the driveway, and pickup was right on time. This is what a local business should look like."</p>
+      <div class="testi-author">Dave R.</div>
+      <div class="testi-location">Potomac, MD — Kitchen Remodel</div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"We cleaned out my late mother's house and needed a big container fast. Potomac Dumpster was empathetic, efficient, and half the price of the national company we called first. Highly recommend to anyone in the area."</p>
+      <div class="testi-author">Patricia L.</div>
+      <div class="testi-location">Bethesda, MD — Estate Cleanout</div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Used them on three commercial projects now. Consistent, reliable, and they actually answer the phone. When you're running a job site, that's everything. My go-to in Montgomery County."</p>
+      <div class="testi-author">Marcus T.</div>
+      <div class="testi-location">North Potomac, MD — General Contractor</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px;background:#1c1c1c;">
+    <polygon points="0,0 1440,50 1440,50 0,50" fill="#0a0a0a"/>
+  </svg>
+</div>
+
+<section id="about">
+  <div class="section-number">04</div>
+  <div class="section-label">Our Story</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title" style="margin-bottom:2rem;">BUILT IN<br>POTOMAC.<br><span class="accent">FOR</span> POTOMAC.</h2>
+      <p>Potomac Dumpster Rentals was founded by <strong>Jim and Carol Haskell</strong> in 2014 after Jim spent a decade driving for a national waste company and noticed something: the big guys didn't actually care about homeowners.</p>
+      <p>Jim knew every street in Potomac, Great Falls, and Bethesda. He knew the tight driveways on River Road, the strict HOAs in some neighborhoods, and exactly what size dumpster would fit without blocking a mailbox or scratching pavers.</p>
+      <p>That local knowledge is still the foundation of everything we do. <strong>Same trucks. Same family. Same commitment to getting it right.</strong></p>
+    </div>
+    <div class="about-visual">
+      <div class="about-big-text">
+        MD<br><span>10</span><br>YRS
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px;background:#0a0a0a;">
+    <polygon points="0,50 1440,0 1440,50" fill="#1c1c1c"/>
+  </svg>
+</div>
+
+<section id="faq">
+  <div class="section-number">05</div>
+  <div class="section-label">Common Questions</div>
+  <h2 class="section-title">GOT<br><span class="accent">QUESTIONS?</span></h2>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <input type="checkbox" id="faq1" />
+      <label class="faq-label" for="faq1">
+        How long can I keep the dumpster?
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">Standard rentals include 7 days. Need longer? We offer extended rental periods at a flat daily rate with no hassle. Just call us and we'll extend it — most customers need 3–5 days for cleanouts and 7–14 for renovations.</div>
+    </div>
+
+    <div class="faq-item">
+      <input type="checkbox" id="faq2" />
+      <label class="faq-label" for="faq2">
+        What can't I throw in a dumpster?
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">Hazardous materials including paint, solvents, chemicals, asbestos, and certain electronics are prohibited by Maryland law. Tires and mattresses require a small additional fee. We'll walk you through what's allowed when you call — no surprises at pickup.</div>
+    </div>
+
+    <div class="faq-item">
+      <input type="checkbox" id="faq3" />
+      <label class="faq-label" for="faq3">
+        Do I need a permit to put it on the street?
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">If the dumpster is on private property — your driveway, backyard — no permit required. If you need it on a public street or in Montgomery County right-of-way, we handle the permit application for you. Just let us know when booking.</div>
+    </div>
+
+    <div class="faq-item">
+      <input type="checkbox" id="faq4" />
+      <label class="faq-label" for="faq4">
+        How do I know what size to get?
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">Quick guide: 10 yd = small cleanout or 1 room renovation. 15–20 yd = large garage, basement, or multi-room reno. 30–40 yd = full construction site or commercial job. When in doubt, call us — we'll ask 3 questions and give you an honest answer, not the biggest upsell.</div>
+    </div>
+
+    <div class="faq-item">
+      <input type="checkbox" id="faq5" />
+      <label class="faq-label" for="faq5">
+        What areas do you serve?
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">We serve all of Montgomery County including Potomac, Bethesda, Rockville, Gaithersburg, North Potomac, Chevy Chase, Silver Spring, and surrounding areas. We also service parts of Loudoun County and Northern Virginia. Call to confirm your location.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px;background:#1c1c1c;">
+    <polygon points="0,0 1440,50 1440,50 0,50" fill="#0a0a0a"/>
+  </svg>
+</div>
+
+<section id="contact">
+  <div class="section-number">06</div>
+  <div class="section-label">Get in Touch</div>
+  <h2 class="section-title">LET'S GET<br>YOUR <span class="accent">PROJECT</span><br>MOVING.</h2>
+
+  <div class="contact-grid">
+    <div>
+      <div class="contact-info-block">
+        <div class="contact-info-label">Phone</div>
+        <div class="contact-info-value"><a href="tel:3015550182">(301) 555-0182</a></div>
+      </div>
+      <div class="contact-info-block">
+        <div class="contact-info-label">Email</div>
+        <div class="contact-info-value"><a href="mailto:info@potomacdumpsterrentals.com">info@potomacdumpsterrentals.com</a></div>
+      </div>
+      <div class="contact-info-block">
+        <div class="contact-info-label">Office</div>
+        <div class="contact-info-value">12800 Shady Grove Rd<br>Potomac, MD 20854</div>
+      </div>
+      <div class="contact-info-block">
+        <div class="contact-info-label">Hours</div>
+        <div class="contact-info-value">Mon–Sat 7:00 AM – 6:00 PM<br>Sunday by Appointment</div>
+      </div>
+      <div style="margin-top:2rem;background:var(--gray);padding:1.5rem;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.08em;line-height:1.8;border-left:3px solid var(--orange);">
+        <strong style="color:var(--white);display:block;margin-bottom:6px;">SERVICE AREA</strong>
+        Potomac · Bethesda · Rockville · North Potomac<br>Gaithersburg · Chevy Chase · Silver Spring<br>Kensington · Wheaton · Germantown
+      </div>
+    </div>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="fname" placeholder="Jim" required />
+          <span class="form-error" id="fname-err">Please enter your name.</span>
+        </div>
+        <div class="form-field">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lname" placeholder="Haskell" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="(301) 555-0100" required />
+          <span class="form-error" id="phone-err">Please enter your phone number.</span>
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" />
+          <span class="form-error" id="email-err">Please enter a valid email.</span>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="service">Service Needed</label>
+        <select id="service" name="service">
+          <option value="">Select a service...</option>
+          <option>Home Cleanout</option>
+          <option>Renovation Debris</option>
+          <option>Yard / Landscaping</option>
+          <option>Construction Site</option>
+          <option>Junk Removal</option>
+          <option>Moving Debris</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="message">Project Details</label>
+        <textarea id="message" name="message" rows="4" placeholder="Tell us about your project — size estimate, location, timing, any questions..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send My Request →</button>
+      <div id="form-success" style="display:none;color:var(--orange);font-size:0.75rem;letter-spacing:0.1em;margin-top:8px;">✓ Message sent! We'll follow up within 1 hour during business hours.</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand"><span>PDR</span> — POTOMAC DUMPSTER RENTALS</div>
+      <p class="footer-tagline">Same-day drop. No-hassle pickup.<br>Montgomery County's most reliable dumpster company since 2014.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Home Cleanouts</a></li>
+        <li><a href="#services">Renovation Debris</a></li>
+        <li><a href="#services">Yard &amp; Landscaping</a></li>
+        <li><a href="#services">Construction Sites</a></li>
+        <li><a href="#services">Junk Removal</a></li>
+        <li><a href="#services">Moving Debris</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:3015550182">(301) 555-0182</a></li>
+        <li><a href="mailto:info@potomacdumpsterrentals.com">info@potomacdumpsterrentals.com</a></li>
+        <li><a href="#contact">12800 Shady Grove Rd<br>Potomac, MD 20854</a></li>
+        <li style="color:var(--text-muted);font-size:0.7rem;margin-top:0.5rem;">Mon–Sat · 7AM–6PM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Potomac Dumpster Rentals LLC. All rights reserved. Licensed &amp; Insured in Maryland.</div>
+    <div class="footer-service-area">Serving Potomac · Bethesda · Rockville · North Potomac · Montgomery County, MD</div>
+  </div>
+</footer>
+
+<!-- FLOATING CALL BUTTON -->
+<a href="tel:3015550182" class="float-call" aria-label="Call us now">
+  <span class="float-call-icon">📞</span>
+  <span>CALL NOW</span>
+</a>
+
+<script>
+  // FAQ is pure CSS — no JS needed
+
+  // Form validation
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const fname = document.getElementById('fname');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+
+    document.querySelectorAll('.form-error').forEach(el => el.style.display = 'none');
+
+    if (!fname.value.trim()) {
+      document.getElementById('fname-err').style.display = 'block';
+      valid = false;
+    }
+
+    if (!phone.value.trim()) {
+      document.getElementById('phone-err').style.display = 'block';
+      valid = false;
+    }
+
+    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      document.getElementById('email-err').style.display = 'block';
+      valid = false;
+    }
+
+    if (valid) {
+      document.getElementById('form-success').style.display = 'block';
+      this.reset();
+      setTimeout(() => document.getElementById('form-success').style.display = 'none', 6000);
+    }
+  });
+
+  // Mobile nav toggle
+  const hamburger = document.querySelector('.nav-hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinks.style.display === 'flex';
+    navLinks.style.display = isOpen ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '64px';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.background = 'rgba(10,10,10,0.98)';
+    navLinks.style.padding = '1.5rem 6vw';
+    navLinks.style.gap = '1.5rem';
+    navLinks.style.borderBottom = '1px solid #2e2e2e';
+  });
+
+  // Close mobile nav on link click
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
