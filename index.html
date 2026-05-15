@@ -1503,7 +1503,9 @@
     navLinks.style.borderBottom  = '1px solid #e4ddd2';
   });
   navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => { navLinks.style.display = 'none'; });
+    a.addEventListener('click', () => {
+      if (window.innerWidth <= 768) { navLinks.style.display = 'none'; }
+    });
   });
 </script>
 </body>
