@@ -997,6 +997,50 @@
     .hero-h1 { font-size: 2.8rem; }
     .hero-credentials { flex-wrap: wrap; gap: 1.5rem; }
   }
+  /* PHOTO STRIP */
+  .photo-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .photo-strip-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .photo-strip-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: brightness(0.92);
+  }
+
+  .photo-strip-item:hover img {
+    transform: scale(1.04);
+    filter: brightness(1);
+  }
+
+  .photo-strip-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,30,46,0.35) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .photo-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .photo-strip { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -1055,6 +1099,30 @@
     </div>
   </div>
 </section>
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip">
+  <div class="photo-strip-item">
+    <img src="/roll-off-dumpster-rental-potomac-md-residential-1.jpg"
+         alt="Roll-off dumpster rental at a residential property in Potomac, Maryland"
+         width="400" height="300" loading="lazy" />
+  </div>
+  <div class="photo-strip-item">
+    <img src="/roll-off-dumpster-rental-potomac-md-residential-2.jpg"
+         alt="Dumpster rental service at an upscale Potomac MD home during renovation"
+         width="400" height="300" loading="lazy" />
+  </div>
+  <div class="photo-strip-item">
+    <img src="/dumpster-rental-potomac-maryland-estate-property.jpg"
+         alt="Roll-off dumpster container at a Potomac Maryland estate property"
+         width="400" height="300" loading="lazy" />
+  </div>
+  <div class="photo-strip-item">
+    <img src="/dumpster-rental-potomac-md-renovation-debris.jpg"
+         alt="Dumpster rental for renovation debris removal in Potomac MD"
+         width="400" height="300" loading="lazy" />
+  </div>
+</div>
 
 <!-- SERVICES -->
 <section id="services">
